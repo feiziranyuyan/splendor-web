@@ -1,0 +1,43 @@
+# 自动标签配置
+
+'type: feature':
+  - head-branch: ['^feature', 'feature']
+
+'type: fix':
+  - head-branch: ['^fix', 'fix']
+
+'type: docs':
+  - head-branch: ['^docs', 'docs']
+  - changed-files:
+    - any-glob-to-any-file: ['**/*.md', 'docs/**/*']
+
+'type: refactor':
+  - head-branch: ['^refactor', 'refactor']
+
+'type: test':
+  - head-branch: ['^test', 'test']
+  - changed-files:
+    - any-glob-to-any-file: ['**/*.test.*', '**/*.spec.*', 'tests/**/*']
+
+'type: chore':
+  - head-branch: ['^chore', 'chore']
+
+'area: ui':
+  - changed-files:
+    - any-glob-to-any-file: ['src/components/**/*']
+
+'area: game-logic':
+  - changed-files:
+    - any-glob-to-any-file: ['src/game/**/*']
+
+'area: ai':
+  - changed-files:
+    - any-glob-to-any-file: ['src/game/ai/**/*']
+
+'area: state':
+  - changed-files:
+    - any-glob-to-any-file: ['src/store/**/*']
+
+'area: config':
+  - changed-files:
+    - any-glob-to-any-file: ['.github/**/*', '*.config.*', '*.json', '.eslintrc.*']
