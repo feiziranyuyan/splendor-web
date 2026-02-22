@@ -102,33 +102,22 @@ yjw/
 
 详细游戏规则请查看 [GAME_RULES.md](./GAME_RULES.md)
 
-## 开发指南
+## 开发流程
 
-### Git提交规范
+### 提交规范
 
-我们使用约定式提交（Conventional Commits）规范：
+使用约定式提交：`feat` | `fix` | `docs` | `style` | `refactor` | `test` | `chore`
 
-- `feat`: 新功能
-- `fix`: 修复bug
-- `docs`: 文档更新
-- `style`: 代码格式（不影响逻辑）
-- `refactor`: 重构
-- `test`: 测试相关
-- `chore`: 构建/工具链配置
-
-示例：
 ```bash
 git commit -m "feat: 添加游戏结束判定逻辑"
 git commit -m "fix: 修复保留卡牌时黄金宝石不足的bug"
 ```
 
-### 使用Claude Code
+### 自动化工作流
 
-本项目支持使用Claude Code进行开发，详见 [claude.md](./claude.md)
+本项目使用 `/ship` skill 自动化开发流程：质量检查 → Self-review → Commit → PR → CI → Merge
 
-### Agent协作
-
-如果需要使用多个Agent协作开发，请参考 [agent.md](./agent.md)
+详见 `.claude/skills/ship/SKILL.md`
 
 ## 待办事项
 
@@ -153,36 +142,8 @@ git commit -m "fix: 修复保留卡牌时黄金宝石不足的bug"
 - Safari >= 14
 - Edge >= 90
 
-## 贡献指南
-
-欢迎贡献代码！请遵循以下步骤：
-
-1. Fork本仓库
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'feat: Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启Pull Request
-
 ## 许可证
 
 本项目采用 MIT 许可证 - 查看 [LICENSE](./LICENSE) 文件了解详情。
-
-## 作者
-
-- **feiziranyuyan** - [GitHub](https://github.com/feiziranyuyan)
-
-## 致谢
-
-- 游戏规则基于桌游《璀璨宝石》（Splendor）
-- 感谢所有贡献者
-
-## 联系方式
-
-如有问题或建议，请通过以下方式联系：
-
-- 邮箱：yujingwen_tj@163.com
-- GitHub Issues: https://github.com/feiziranyuyan/splendor-web/issues
-
----
 
 Made with ❤️ by feiziranyuyan
