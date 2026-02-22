@@ -6,6 +6,7 @@ import {
   PlayerType,
   GameAction,
   CardLevel,
+  AIDifficulty,
 } from '@/types'
 import { getGemConfig, VISIBLE_CARDS_PER_LEVEL, WINNING_POINTS } from '@/constants'
 import { CARDS_BY_LEVEL } from '@/constants/cards'
@@ -52,7 +53,7 @@ export class GameEngine {
         id: `player_${humanPlayerNames.length + i}`,
         name: aiPlayers[i].name,
         type: PlayerType.AI,
-        aiDifficulty: aiPlayers[i].difficulty as any,
+        aiDifficulty: aiPlayers[i].difficulty as AIDifficulty,
         gems: {},
         cards: [],
         reservedCards: [],

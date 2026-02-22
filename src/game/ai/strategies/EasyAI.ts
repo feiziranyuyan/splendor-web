@@ -1,4 +1,4 @@
-import { GameState, Player, GameAction, PurchaseCardAction } from '@/types'
+import { GameState, Player, GameAction, PurchaseCardAction, ReserveCardAction } from '@/types'
 import { AIPlayer } from '../AIPlayer'
 
 /**
@@ -58,8 +58,8 @@ export class EasyAI extends AIPlayer {
     } else if (reserveActions.length > 0) {
       // 保留高分卡牌
       const highValueCards = reserveActions.filter(action => {
-        const card = (action as any).card
-        return card.points >= 2
+        const reserveAction = action as ReserveCardAction
+        return reserveAction.card.points >= 2
       })
       
       if (highValueCards.length > 0) {
