@@ -10,7 +10,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: '/yjw/',
+  base: '/splendor-web/',
   test: {
     globals: true,
     environment: 'jsdom',

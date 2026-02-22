@@ -1,14 +1,18 @@
-# Claude Code 使用指南
+# Claude Code 使用与 Agent 协作指南
 
-本文档介绍如何使用Claude Code开发璀璨宝石项目。
+本文档提供Claude Code开发工具的使用指南，以及多Agent协作开发的最佳实践。
 
-## 什么是Claude Code？
+---
+
+## 第一部分：Claude Code 基础
+
+### 什么是Claude Code？
 
 Claude Code是Anthropic提供的官方CLI工具，可以帮助你通过自然语言与Claude AI交互，完成各种开发任务。
 
-## 安装和配置
+### 安装和配置
 
-### 安装Claude Code
+#### 安装Claude Code
 
 ```bash
 # 使用npm安装（推荐）
@@ -18,7 +22,7 @@ npm install -g @anthropic-ai/claude-code
 brew install claude-code
 ```
 
-### 配置API Key
+#### 配置API Key
 
 ```bash
 # 设置环境变量
@@ -28,53 +32,46 @@ export ANTHROPIC_API_KEY="your-api-key"
 claude-code config set apiKey "your-api-key"
 ```
 
-### 验证安装
+#### 验证安装
 
 ```bash
 claude-code --version
 ```
 
-## 基本用法
-
-### 启动交互式会话
-
-```bash
-# 在项目目录下启动
-cd /Users/hj/workspace/yjw
-claude-code
-```
-
 ### 常用命令
 
 ```bash
+# 启动交互式会话
+claude-code
+
 # 查看帮助
 /help
 
-# 清除对话历史
-/clear
-
 # 查看当前任务
 /tasks
+
+# 清除对话历史
+/clear
 
 # 退出
 /exit
 ```
 
-## 项目开发工作流
+---
 
-### 1. 项目初始化
+## 第二部分：项目开发工作流
+
+### 基础开发场景
+
+#### 1. 快速原型开发
 
 ```
-User: 帮我初始化一个React + TypeScript + Vite项目
+User: 创建一个简单的游戏主界面，包含卡牌区、宝石池、玩家面板
 ```
 
-Claude会：
-- 创建项目结构
-- 安装依赖
-- 配置开发环境
-- 生成初始代码
+Claude会快速生成原型代码，你可以迭代改进。
 
-### 2. 功能开发
+#### 2. 功能开发
 
 ```
 User: 实现游戏引擎的卡牌购买功能
@@ -87,7 +84,7 @@ Claude会：
 - 编写测试
 - 更新文档
 
-### 3. Bug修复
+#### 3. Bug修复
 
 ```
 User: 修复保留卡牌时筹码超过10个的bug
@@ -100,48 +97,27 @@ Claude会：
 - 实施修复
 - 验证修复
 
-### 4. 代码审查
+#### 4. 代码审查
 
 ```
 User: 审查src/game/core/GameEngine.ts的代码质量
 ```
 
-Claude会：
-- 检查代码规范
-- 发现潜在问题
-- 提出改进建议
-- 可选：自动修复
+Claude会检查代码规范、发现潜在问题、提出改进建议。
 
-### 5. 测试
+### 高级特性
 
-```
-User: 为GameEngine类编写单元测试
-```
+#### 使用Plan模式
 
-Claude会：
-- 分析代码逻辑
-- 设计测试用例
-- 编写测试代码
-- 运行测试验证
-
-## 高级特性
-
-### 使用Plan模式
-
-对于复杂任务，可以让Claude先制定计划：
+对于复杂任务，让Claude先制定计划：
 
 ```
 User: /plan 实现完整的AI对手系统
 ```
 
-Claude会：
-1. 分析需求
-2. 制定详细计划
-3. 列出关键步骤
-4. 识别风险点
-5. 等待你确认后执行
+Claude会制定详细计划、列出关键步骤、识别风险点，等待你确认后执行。
 
-### 使用Team模式
+#### 使用Team模式（多Agent协作）
 
 对于大型任务，可以使用多Agent协作：
 
@@ -149,36 +125,172 @@ Claude会：
 User: 创建一个开发团队，并行开发游戏引擎和UI
 ```
 
-Claude会：
-- 创建团队
-- 分配任务
-- 协调多个Agent
-- 整合结果
+Claude会创建团队、分配任务、协调多个Agent、整合结果。
 
-### 使用技能（Skills）
+---
 
-项目支持的技能：
+## 第三部分：多Agent协作模式
 
-```bash
-# 创建Git提交
-/commit
+### 团队结构
 
-# 审查PR
-/review-pr
+本项目使用Team模式进行协作，团队成员包括：
+- **Team Lead**: 项目负责人，负责任务分配和协调
+- **Backend Engineer**: 负责游戏逻辑引擎、AI系统
+- **Frontend Engineer**: 负责UI组件、动画效果
+- **QA Engineer**: 负责测试、质量保证
 
-# 生成PDF文档
-/pdf
+### 任务分配原则
+
+1. **独立性**: 尽量分配独立的任务，减少依赖
+2. **并行性**: 可以并行执行的任务同时进行
+3. **专业性**: 根据Agent特长分配任务
+4. **责任制**: 每个任务有明确的负责人
+
+### Agent工作流程
+
+#### 1. 任务认领
+
+```
+# 查看可用任务
+Use TaskList
+
+# 认领任务
+Use TaskUpdate to set owner and status
 ```
 
-### Context管理
+#### 2. 执行任务
 
-Claude Code会自动管理上下文：
+按照任务描述完成工作，及时更新进度。
 
-- **自动摘要**: 长对话自动摘要，保持上下文连贯
-- **文件缓存**: 频繁访问的文件会被缓存
-- **智能读取**: 只读取相关文件，节省token
+#### 3. 完成任务
 
-## 项目特定用法
+```
+Use TaskUpdate to mark as completed
+```
+
+#### 4. 通知团队
+
+完成后通知team lead或相关成员。
+
+### 通信协议
+
+#### 消息类型
+
+1. **任务完成通知**
+```
+Task #{id} completed: {task_name}
+Details: {completion_details}
+Next action: {suggested_next_step}
+```
+
+2. **需要帮助**
+```
+Need help with Task #{id}: {task_name}
+Issue: {problem_description}
+Blocking: {blocking_reason}
+```
+
+3. **阻塞通知**
+```
+Task #{id} blocked by Task #{blocker_id}
+Waiting for: {dependency_description}
+```
+
+### 代码协作规范
+
+#### Git分支策略
+
+```
+main (生产分支)
+  ↑
+develop (开发分支)
+  ↑
+feature/* (功能分支)
+```
+
+#### Commit规范
+
+使用约定式提交：
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
+```
+
+**Type类型**:
+- `feat`: 新功能
+- `fix`: 修复bug
+- `docs`: 文档
+- `style`: 格式
+- `refactor`: 重构
+- `test`: 测试
+- `chore`: 构建/工具
+
+#### 代码审查清单
+
+- [ ] 代码符合TypeScript类型规范
+- [ ] 遵循项目代码风格（ESLint + Prettier）
+- [ ] 有必要的注释和文档
+- [ ] 有对应的单元测试
+- [ ] 测试覆盖率达标（>80%）
+- [ ] 无明显的性能问题
+- [ ] 无安全漏洞（XSS、注入等）
+
+---
+
+## 第四部分：最佳实践
+
+### 清晰的需求描述
+
+**好的示例**:
+```
+实现一个函数purchaseCard，接收玩家ID和卡牌ID，
+验证购买条件（宝石是否足够），执行购买逻辑
+（扣除宝石、添加卡牌、更新点数），返回更新后的游戏状态
+```
+
+**不好的示例**:
+```
+写个购买卡牌的函数
+```
+
+### 提供上下文
+
+```
+我正在开发璀璨宝石游戏的AI系统。
+当前已经实现了简单AI（随机策略），
+现在需要实现中等AI，使用评分系统选择最优动作。
+评分应考虑：卡牌点数、贵族目标、资源效率。
+```
+
+### 指定约束条件
+
+```
+实现拿取宝石功能，需要注意：
+- 不能拿取黄金宝石
+- 拿取2个相同颜色时，该颜色至少要有4个
+- 拿取后筹码总数不能超过10个
+- 要返回详细的验证错误信息
+```
+
+### 迭代改进
+
+```
+User: 这个AI决策太慢了，能优化吗？
+
+Claude: [分析性能瓶颈，提出优化方案]
+
+User: 好的，优化后测试一下性能
+
+Claude: [实施优化，运行性能测试，报告结果]
+```
+
+---
+
+## 第五部分：项目特定用法
 
 ### 游戏规则查询
 
@@ -194,10 +306,7 @@ Claude会查阅GAME_RULES.md并回答。
 User: 生成一个宝石筹码的React组件，支持点击选中效果
 ```
 
-Claude会：
-- 根据项目技术栈（React + TypeScript + Tailwind）
-- 遵循项目代码风格
-- 生成符合规范的代码
+Claude会根据项目技术栈（React + TypeScript + Tailwind）生成符合规范的代码。
 
 ### 重构
 
@@ -205,140 +314,13 @@ Claude会：
 User: 重构GameEngine类，提取验证逻辑到独立模块
 ```
 
-Claude会：
-- 分析现有代码
-- 设计重构方案
-- 执行重构
-- 保证功能不变
-- 运行测试验证
+Claude会分析现有代码、设计重构方案、执行重构、保证功能不变、运行测试验证。
 
-### 文档生成
+---
 
-```
-User: 为AI模块生成API文档
-```
+## 第六部分：注意事项
 
-Claude会：
-- 分析代码接口
-- 生成详细文档
-- 包含示例代码
-- 符合JSDoc规范
-
-## 最佳实践
-
-### 1. 清晰的需求描述
-
-**好的示例**:
-```
-实现一个函数purchaseCard，接收玩家ID和卡牌ID，
-验证购买条件（宝石是否足够），执行购买逻辑
-（扣除宝石、添加卡牌、更新点数），返回更新后的游戏状态
-```
-
-**不好的示例**:
-```
-写个购买卡牌的函数
-```
-
-### 2. 提供上下文
-
-```
-我正在开发璀璨宝石游戏的AI系统。
-当前已经实现了简单AI（随机策略），
-现在需要实现中等AI，使用评分系统选择最优动作。
-评分应考虑：卡牌点数、贵族目标、资源效率。
-```
-
-### 3. 指定约束条件
-
-```
-实现拿取宝石功能，需要注意：
-- 不能拿取黄金宝石
-- 拿取2个相同颜色时，该颜色至少要有4个
-- 拿取后筹码总数不能超过10个
-- 要返回详细的验证错误信息
-```
-
-### 4. 迭代改进
-
-```
-User: 这个AI决策太慢了，能优化吗？
-
-Claude: [分析性能瓶颈，提出优化方案]
-
-User: 好的，优化后测试一下性能
-
-Claude: [实施优化，运行性能测试，报告结果]
-```
-
-### 5. 利用已有代码
-
-```
-User: 参考Card.tsx的实现方式，创建Noble.tsx组件
-```
-
-Claude会：
-- 读取Card.tsx
-- 理解其设计模式
-- 创建风格一致的Noble.tsx
-
-## 常见场景
-
-### 场景1: 快速原型
-
-```
-User: 创建一个简单的游戏主界面，包含卡牌区、宝石池、玩家面板
-```
-
-Claude会快速生成原型代码，你可以迭代改进。
-
-### 场景2: 学习代码
-
-```
-User: 解释GameEngine.executeAction方法的实现逻辑
-```
-
-Claude会详细解释代码逻辑，帮助理解。
-
-### 场景3: 排查问题
-
-```
-User: 游戏结束判定有bug，有时候没有正确触发，帮我找找问题
-```
-
-Claude会：
-- 读取相关代码
-- 分析逻辑
-- 找出bug
-- 提供修复
-
-### 场景4: 性能优化
-
-```
-User: 游戏在移动端卡顿，帮我优化性能
-```
-
-Claude会：
-- 分析性能瓶颈
-- 优化渲染逻辑
-- 添加React.memo
-- 优化状态更新
-
-### 场景5: 添加功能
-
-```
-User: 添加游戏音效，点击卡牌、购买成功、贵族访问时播放声音
-```
-
-Claude会：
-- 设计音效系统
-- 实现播放逻辑
-- 添加静音开关
-- 集成到现有代码
-
-## 注意事项
-
-### 1. 网络问题
+### 网络限制
 
 当前环境网络受限，某些操作可能失败：
 - 安装npm包
@@ -350,32 +332,7 @@ Claude会：
 - 手动下载后放置
 - 使用国内镜像
 
-### 2. 文件权限
-
-确保Claude Code有读写项目文件的权限：
-
-```bash
-# 检查权限
-ls -la
-
-# 修改权限（如需要）
-chmod -R u+rw .
-```
-
-### 3. Git配置
-
-确保Git配置正确：
-
-```bash
-# 查看配置
-git config --list
-
-# 设置用户信息
-git config user.name "feiziranyuyan"
-git config user.email "yujingwen_tj@163.com"
-```
-
-### 4. Token限制
+### Token限制
 
 Claude Code有上下文token限制：
 - 单次对话token有限
@@ -387,7 +344,7 @@ Claude Code有上下文token限制：
 - 定期/clear清理上下文
 - 避免一次读取太多文件
 
-### 5. 自动化程度
+### 自动化程度
 
 Claude Code很强大，但：
 - 复杂决策仍需人工确认
@@ -395,7 +352,9 @@ Claude Code很强大，但：
 - 测试需要验证
 - 部署需要人工触发
 
-## 调试技巧
+---
+
+## 第七部分：调试技巧
 
 ### 查看Claude的思考过程
 
@@ -429,44 +388,11 @@ git checkout -- <file>
 User: 刚才的修改有问题，撤销它
 ```
 
-## 生产力提示
+---
 
-### 使用快捷命令
+## 第八部分：常见问题
 
-创建自定义别名：
-
-```bash
-# 在.bashrc或.zshrc中
-alias cc="claude-code"
-alias ccdev="claude-code"
-```
-
-### 保存常用prompt
-
-创建templates文件：
-
-```markdown
-# templates/component.md
-创建一个React组件{ComponentName}：
-- 使用TypeScript
-- 使用Tailwind CSS
-- 支持{features}
-- 包含单元测试
-```
-
-### 批量任务
-
-```
-User: 依次完成以下任务：
-1. 实现数据模型
-2. 实现游戏引擎
-3. 编写测试
-4. 更新文档
-```
-
-## 故障排除
-
-### Claude Code无法启动
+### Q1: Claude Code无法启动
 
 ```bash
 # 检查安装
@@ -477,7 +403,7 @@ npm uninstall -g @anthropic-ai/claude-code
 npm install -g @anthropic-ai/claude-code
 ```
 
-### API Key问题
+### Q2: API Key问题
 
 ```bash
 # 验证API Key
@@ -487,22 +413,32 @@ echo $ANTHROPIC_API_KEY
 claude-code --test
 ```
 
-### 性能问题
+### Q3: 我的任务被阻塞了怎么办？
 
-```bash
-# 清理缓存
-claude-code cache clear
+- 在TaskList中标记blockedBy
+- 通知相关的负责人
+- 找其他可以执行的任务
+- 或协助解决阻塞任务
 
-# 减少上下文大小
-/clear
-```
+### Q4: 发现其他人的代码有问题怎么办？
 
-## 参考资源
+- 确认是否真的是问题
+- 通过SendMessage通知负责人
+- 如果是紧急问题，通知team lead
+- 创建Issue记录问题
+
+---
+
+## 第九部分：参考资源
 
 - [Claude Code官方文档](https://docs.anthropic.com/claude-code)
 - [Claude API文档](https://docs.anthropic.com/claude/reference)
 - [GitHub仓库](https://github.com/anthropics/claude-code)
-- [社区论坛](https://community.anthropic.com/)
+- [TypeScript官方文档](https://www.typescriptlang.org/)
+- [React官方文档](https://react.dev/)
+- [约定式提交规范](https://www.conventionalcommits.org/)
+
+---
 
 ## 获取帮助
 
@@ -516,4 +452,6 @@ claude-code cache clear
 
 ---
 
-Happy Coding with Claude! 🚀
+**让我们一起打造出色的璀璨宝石网页版！** 💎✨
+
+*Happy Coding with Claude!* 🚀

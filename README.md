@@ -144,7 +144,7 @@ git commit -m "fix: 修复保留卡牌时黄金宝石不足的bug"
 
 每次推送到 `main` 分支时，会自动触发构建和部署流程。
 
-访问地址：https://feiziranyuyan.github.io/yjw/
+访问地址：https://feiziranyuyan.github.io/splendor-web/
 
 ## 浏览器支持
 
@@ -181,7 +181,7 @@ git commit -m "fix: 修复保留卡牌时黄金宝石不足的bug"
 如有问题或建议，请通过以下方式联系：
 
 - 邮箱：yujingwen_tj@163.com
-- GitHub Issues: https://github.com/feiziranyuyan/yjw/issues
+- GitHub Issues: https://github.com/feiziranyuyan/splendor-web/issues
 
 ---
 
