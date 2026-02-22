@@ -47,5 +47,6 @@ Thumbs.db
 *.temp
 
 # Claude Code
-.claude/
+.claude/*
+!.claude/skills/
 .alma-snapshots/
