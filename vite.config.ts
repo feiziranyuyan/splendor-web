@@ -10,7 +10,11 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  base: '/splendor-web/',
+  // Support PR preview deployments
+  // PR previews are deployed to /splendor-web/pr-<number>/
+  base: process.env.PR_NUMBER
+    ? `/splendor-web/pr-${process.env.PR_NUMBER}/`
+    : '/splendor-web/',
   test: {
     globals: true,
     environment: 'jsdom',
